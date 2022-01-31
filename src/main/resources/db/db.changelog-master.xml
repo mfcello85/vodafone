@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+  http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+    <changeSet id="20223001-1" author="Marcello Felappi">
+        <createTable tableName="city">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="city_pk" />
+            </column>
+            <column name="name" type="varchar(250)">
+                <constraints unique="true" uniqueConstraintName="city_name_unq" />
+            </column>
+            <column name="code" type="varchar(10)" defaultValueBoolean="false">
+                <constraints unique="true" uniqueConstraintName="city_name_unq" />
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="20223001-2" author="Marcello Felappi">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="/db/city-table.csv"
+                  schemaName="public"
+                  separator=";"
+                  tableName="city"
+                  usePreparedStatements="true">
+            <column header="NR."
+                    name="id"
+                    type="bigint"/>
+            <column header="DESCRIZIONE COMUNE"
+                    name="name"
+                    type="varchar(250)"/>
+            <column header="CODICE BELFIORE"
+                    name="code"
+                    type="varchar(250)"/>
+            <column header="SIGLA" type="skip"/>
+            <column header="CODICE ELETTORALE" type="skip"/>
+            <column header="CODICE ISTAT" type="skip"/>
+
+        </loadData>
+
+    </changeSet>
+
+
+
+</databaseChangeLog>
