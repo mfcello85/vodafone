@@ -1,8 +1,10 @@
 package it.vodafone.test.service;
 
 import it.vodafone.test.dto.*;
+import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.exception.TaxCodeInvalidException;
+import it.vodafone.test.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ public class TaxCodeService {
 
     private final PersonTaxCodeParser personTaxCodeParser;
     private final PersonTaxCodeCreator personTaxCodeCreator;
+    private final CountryRepository countryRepository;
 
     static final String WRONG_LENGTH_MESSAGE = "Wrong taxcode length: %s. The only taxcode length allowed are 9, 11, 16.";
 
@@ -49,12 +52,19 @@ public class TaxCodeService {
 
         Gender genderFromTaxCode = Gender.getGenderFromTaxCode(birthDay);
         String country = personTaxCodeParser.getCountry(taxCode.getTaxCode());
+
+        //Some countries don't exist anymore therefore can't be present in the database
+        //It would be wrong to throw an exception
+        String effectiveCountry = countryRepository.findByCode(country)
+                .map(Country::getName)
+                .orElse(country);
+
         String controlCharacter = taxCode.getTaxCode().substring(15, 16);
 
         Boolean foreignCountry = country.toUpperCase().startsWith("Z");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthYear), birthMonth, Integer.parseInt(birthDay));
 
-        return new PersonTaxCodeComponents(birthDate, genderFromTaxCode, country, foreignCountry, surname, name
+        return new PersonTaxCodeComponents(birthDate, genderFromTaxCode, effectiveCountry, foreignCountry, surname, name
                 , controlCharacter);
     }
 

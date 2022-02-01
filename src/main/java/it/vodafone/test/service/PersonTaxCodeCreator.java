@@ -3,7 +3,7 @@ package it.vodafone.test.service;
 import it.vodafone.test.dto.PersonTaxCode;
 import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
-import it.vodafone.test.repository.CityRepository;
+import it.vodafone.test.repository.CountryRepository;
 import it.vodafone.test.util.StringUtil;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -17,13 +17,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor
 public class PersonTaxCodeCreator {
 
     private final MonthParser monthParser;
-    private final CityRepository cityRepository;
+    private final CountryRepository countryRepository;
     private final CinCalculator cinCalculator;
 
     /**
@@ -41,7 +42,7 @@ public class PersonTaxCodeCreator {
         String monthLetter = monthParser.getMonthLetter(birthDate.getMonth());
         String birthDay = extractBirthDay(personTaxCode);
 
-        Optional<Country> optionalCity = cityRepository.findByName(personTaxCode.getCountry().toUpperCase());
+        Optional<Country> optionalCity = countryRepository.findByName(personTaxCode.getCountry().toUpperCase());
         Country country = optionalCity.get();
 
         String baseTaxCode = surnameSection + nameSection + year + monthLetter + birthDay + country.getCode();
@@ -76,7 +77,10 @@ public class PersonTaxCodeCreator {
      * @return
      */
     String getSurnameSection(PersonTaxCode personTaxCode) {
-        List<String> surnames = personTaxCode.getSurname();
+        List<String> surnames = personTaxCode.getSurname()
+                .stream()
+                .map(String::toUpperCase)
+                .collect(toList());;
 
         String consonants = surnames.stream()
                 .map(StringUtils::stripAccents)
@@ -116,7 +120,10 @@ public class PersonTaxCodeCreator {
      * @return
      */
     String getNameSection(PersonTaxCode personTaxCode) {
-        List<String> name = personTaxCode.getName();
+        List<String> name = personTaxCode.getName()
+                .stream()
+                .map(String::toUpperCase)
+                .collect(toList());
 
         if (!name.isEmpty() && name.get(0).chars().mapToObj(s -> (char) s)
                 .map(String::valueOf)
@@ -127,7 +134,7 @@ public class PersonTaxCodeCreator {
                     .map(String::valueOf)
                     .filter(s -> !StringUtil.isVowel(s))
                     .limit(4)
-                    .collect(Collectors.toList());
+                    .collect(toList());
 
             return firstFourConsonants.get(0) + firstFourConsonants.get(2) + firstFourConsonants.get(3);
         }

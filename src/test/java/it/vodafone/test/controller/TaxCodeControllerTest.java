@@ -9,7 +9,7 @@ import it.vodafone.test.dto.PersonTaxCodeComponents;
 import it.vodafone.test.dto.TaxCode;
 import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
-import it.vodafone.test.repository.CityRepository;
+import it.vodafone.test.repository.CountryRepository;
 import it.vodafone.test.service.MonthParser;
 import it.vodafone.test.service.PersonTaxCodeParser;
 import it.vodafone.test.service.TaxCodeService;
@@ -68,7 +68,7 @@ public class TaxCodeControllerTest {
     @MockBean
     private MonthParser monthParser;
     @MockBean
-    private CityRepository cityRepository;
+    private CountryRepository countryRepository;
 
     @Autowired
     private MockMvc mockMvc;
@@ -95,7 +95,7 @@ public class TaxCodeControllerTest {
         when(personTaxCodeParser.getBirthDay(TAXCODE)).thenReturn("12");
         when(personTaxCodeParser.getCountry(TAXCODE)).thenReturn(COUNTRY_CODE);
         when(taxCodeValidatorUtil.checkCountry(COUNTRY_CODE)).thenReturn(true);
-        when(cityRepository.findByName(any())).thenReturn(Optional.of(new Country()));
+        when(countryRepository.findByName(any())).thenReturn(Optional.of(new Country()));
 
     }
 
@@ -226,7 +226,7 @@ public class TaxCodeControllerTest {
 
     @Test
     public void shouldFailWithNullCountry() throws Exception {
-        when(cityRepository.findByName(any())).thenReturn(Optional.empty());
+        when(countryRepository.findByName(any())).thenReturn(Optional.empty());
         TaxCode taxCode = new TaxCode(TAXCODE);
         PersonTaxCode personTaxCode = getPersonTaxCode();
         personTaxCode.setCountry(null);
@@ -243,7 +243,7 @@ public class TaxCodeControllerTest {
 
     @Test
     public void shouldFailWithWrongCountry() throws Exception {
-        when(cityRepository.findByName(any())).thenReturn(Optional.empty());
+        when(countryRepository.findByName(any())).thenReturn(Optional.empty());
         TaxCode taxCode = new TaxCode(TAXCODE);
         PersonTaxCode personTaxCode = getPersonTaxCode();
         personTaxCode.setCountry("AA");
@@ -277,7 +277,7 @@ public class TaxCodeControllerTest {
     public void shouldFailWithShortName() throws Exception {
         TaxCode taxCode = new TaxCode(TAXCODE);
         PersonTaxCode personTaxCode = getPersonTaxCode();
-        personTaxCode.setSurname(Collections.singletonList("a"));
+        personTaxCode.setName(Collections.singletonList("a"));
         when(taxCodeService.taxCodeFromComponents(personTaxCode))
                 .thenReturn(taxCode);
         mockMvc.perform(post("/taxcode")

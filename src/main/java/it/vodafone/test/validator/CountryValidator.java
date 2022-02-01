@@ -1,6 +1,6 @@
 package it.vodafone.test.validator;
 
-import it.vodafone.test.repository.CityRepository;
+import it.vodafone.test.repository.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import javax.validation.ConstraintValidatorContext;
 @AllArgsConstructor
 public class CountryValidator implements
         ConstraintValidator<ExistingCountry, String> {
-    private final CityRepository cityRepository;
+    private final CountryRepository countryRepository;
 
     @Override
     public void initialize(ExistingCountry constraintAnnotation) {
@@ -28,7 +28,7 @@ public class CountryValidator implements
         if (StringUtils.isBlank(city)) {
             return true;
         }
-        return cityRepository.findByName(city.toUpperCase()).isPresent();
+        return countryRepository.findByName(city.toUpperCase()).isPresent();
     }
 
 }

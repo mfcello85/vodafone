@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CityRepository extends CrudRepository<Country, Integer> {
+public interface CountryRepository extends CrudRepository<Country, Integer> {
 
     Optional<Country> findByCode(String code);
 

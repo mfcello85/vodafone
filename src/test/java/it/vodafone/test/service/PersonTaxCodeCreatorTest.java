@@ -3,7 +3,7 @@ package it.vodafone.test.service;
 import it.vodafone.test.dto.PersonTaxCode;
 import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
-import it.vodafone.test.repository.CityRepository;
+import it.vodafone.test.repository.CountryRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class PersonTaxCodeCreatorTest {
     @Spy
     private MonthParser monthParser = new MonthParser();
     @Mock
-    private CityRepository cityRepository;
+    private CountryRepository countryRepository;
     @Spy
     private CinCalculator cinCalculator = new CinCalculator();
 
@@ -34,7 +34,7 @@ public class PersonTaxCodeCreatorTest {
     public void setup() {
         MockitoAnnotations.openMocks(this);
 
-        personTaxCodeCreator = new PersonTaxCodeCreator(monthParser, cityRepository, cinCalculator);
+        personTaxCodeCreator = new PersonTaxCodeCreator(monthParser, countryRepository, cinCalculator);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class PersonTaxCodeCreatorTest {
         country.setName("LOVERE");
         country.setCode("E704");
 
-        when(cityRepository.findByName(any())).thenReturn(Optional.of(country));
+        when(countryRepository.findByName(any())).thenReturn(Optional.of(country));
         PersonTaxCode personTaxCode = generatePersonTaxCode();
 
         String taxCode = personTaxCodeCreator.createTaxCode(personTaxCode);
