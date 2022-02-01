@@ -1,6 +1,6 @@
 package it.vodafone.test.validator;
 
-import it.vodafone.test.entity.City;
+import it.vodafone.test.entity.Country;
 import it.vodafone.test.repository.CityRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +24,7 @@ public class CountryValidatorTest {
         MockitoAnnotations.openMocks(this);
         countryValidator = new CountryValidator(cityRepository);
 
-        Mockito.when(cityRepository.findByName(CITY_NAME)).thenReturn(Optional.of(new City()));
+        Mockito.when(cityRepository.findByName(CITY_NAME)).thenReturn(Optional.of(new Country()));
     }
 
     @Test

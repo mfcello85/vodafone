@@ -7,7 +7,7 @@ import it.vodafone.test.dto.ErrorResponse;
 import it.vodafone.test.dto.PersonTaxCode;
 import it.vodafone.test.dto.PersonTaxCodeComponents;
 import it.vodafone.test.dto.TaxCode;
-import it.vodafone.test.entity.City;
+import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.repository.CityRepository;
 import it.vodafone.test.service.MonthParser;
@@ -95,7 +95,7 @@ public class TaxCodeControllerTest {
         when(personTaxCodeParser.getBirthDay(TAXCODE)).thenReturn("12");
         when(personTaxCodeParser.getCountry(TAXCODE)).thenReturn(COUNTRY_CODE);
         when(taxCodeValidatorUtil.checkCountry(COUNTRY_CODE)).thenReturn(true);
-        when(cityRepository.findByName(any())).thenReturn(Optional.of(new City()));
+        when(cityRepository.findByName(any())).thenReturn(Optional.of(new Country()));
 
     }
 
@@ -274,6 +274,22 @@ public class TaxCodeControllerTest {
     }
 
     @Test
+    public void shouldFailWithShortName() throws Exception {
+        TaxCode taxCode = new TaxCode(TAXCODE);
+        PersonTaxCode personTaxCode = getPersonTaxCode();
+        personTaxCode.setSurname(Collections.singletonList("a"));
+        when(taxCodeService.taxCodeFromComponents(personTaxCode))
+                .thenReturn(taxCode);
+        mockMvc.perform(post("/taxcode")
+                .content(mapper.writeValueAsString(personTaxCode))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content()
+                        .json(mapper.writeValueAsString(errorResponse("The list should contain at least a two character name", "[a]"))));
+    }
+
+
+    @Test
     public void shouldFailWithEmptySurname() throws Exception {
         TaxCode taxCode = new TaxCode(TAXCODE);
         PersonTaxCode personTaxCode = getPersonTaxCode();
@@ -289,6 +305,20 @@ public class TaxCodeControllerTest {
 
     }
 
+    @Test
+    public void shouldFailWithShortSurname() throws Exception {
+        TaxCode taxCode = new TaxCode(TAXCODE);
+        PersonTaxCode personTaxCode = getPersonTaxCode();
+        personTaxCode.setSurname(Collections.singletonList("a"));
+        when(taxCodeService.taxCodeFromComponents(personTaxCode))
+                .thenReturn(taxCode);
+        mockMvc.perform(post("/taxcode")
+                .content(mapper.writeValueAsString(personTaxCode))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content()
+                        .json(mapper.writeValueAsString(errorResponse("The list should contain at least a two character surname", "[a]"))));
+    }
 
     private PersonTaxCode getPersonTaxCode() {
         PersonTaxCode personTaxCode = new PersonTaxCode(LocalDate.of(1985, 6, 24), Gender.MALE, "LOVERE", false, asList("FELAPPI")

@@ -1,8 +1,7 @@
 package it.vodafone.test.service;
 
 import it.vodafone.test.dto.PersonTaxCode;
-import it.vodafone.test.dto.PersonTaxCode;
-import it.vodafone.test.entity.City;
+import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.repository.CityRepository;
 import org.junit.jupiter.api.Assertions;
@@ -130,12 +129,12 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldCreateTaxCode() {
-        City city = new City();
-        city.setId(1);
-        city.setName("LOVERE");
-        city.setCode("E704");
+        Country country = new Country();
+        country.setId(1);
+        country.setName("LOVERE");
+        country.setCode("E704");
 
-        when(cityRepository.findByName(any())).thenReturn(Optional.of(city));
+        when(cityRepository.findByName(any())).thenReturn(Optional.of(country));
         PersonTaxCode personTaxCode = generatePersonTaxCode();
 
         String taxCode = personTaxCodeCreator.createTaxCode(personTaxCode);

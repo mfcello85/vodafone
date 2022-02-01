@@ -3,7 +3,7 @@
   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
   http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
     <changeSet id="20223001-1" author="Marcello Felappi">
-        <createTable tableName="city">
+        <createTable tableName="country">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" primaryKeyName="city_pk" />
             </column>
@@ -22,16 +22,16 @@
                           incrementBy="1"
                           schemaName="public"
                           startWith="1"
-                          tableName="city"/>
+                          tableName="country"/>
     </changeSet>
     <changeSet id="20223001-2" author="Marcello Felappi">
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"
-                  file="/db/city-table.csv"
+                  file="/db/country-table.csv"
                   schemaName="public"
                   separator=";"
-                  tableName="city"
+                  tableName="country"
                   usePreparedStatements="true">
             <column header="NR."
                     type="skip"/>
@@ -48,10 +48,10 @@
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"
-                  file="/db/foreign-city.csv"
+                  file="/db/foreign-country.csv"
                   schemaName="public"
                   separator=";"
-                  tableName="city"
+                  tableName="country"
                   usePreparedStatements="true">
             <column header="nome"
                     name="name"

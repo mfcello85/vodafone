@@ -43,13 +43,13 @@ public class TaxCodeService {
         String birthDay = personTaxCodeParser.getBirthDay(taxCode.getTaxCode());
 
         Gender genderFromTaxCode = Gender.getGenderFromTaxCode(birthDay);
-        String comune = personTaxCodeParser.getCountry(taxCode.getTaxCode());
+        String country = personTaxCodeParser.getCountry(taxCode.getTaxCode());
         String controlCharacter = taxCode.getTaxCode().substring(15, 16);
 
-        Boolean foreignCountry = comune.toUpperCase().startsWith("Z");
+        Boolean foreignCountry = country.toUpperCase().startsWith("Z");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthYear), birthMonth, Integer.parseInt(birthDay));
 
-        return new PersonTaxCodeComponents(birthDate, genderFromTaxCode, comune, foreignCountry, surname, name
+        return new PersonTaxCodeComponents(birthDate, genderFromTaxCode, country, foreignCountry, surname, name
                 , controlCharacter);
     }
 

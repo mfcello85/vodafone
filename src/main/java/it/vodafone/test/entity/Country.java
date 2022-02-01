@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "city")
-public class City {
+@Table(name = "country")
+public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

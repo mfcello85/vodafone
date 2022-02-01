@@ -3,6 +3,7 @@ package it.vodafone.test.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.validator.ExistingCountry;
+import it.vodafone.test.validator.InvalidList;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,8 +33,10 @@ public class PersonTaxCode {
     private String country;
     private Boolean foreignCountry = false;
     @NotEmpty(message = "Surname list can't be empty")
+    @InvalidList(message = "The list should contain at least a two character surname")
     private List<String> surname;
     @NotEmpty(message = "Name list can't be empty")
+    @InvalidList(message = "The list should contain at least a two character name")
     private List<String> name;
 
     public LocalDate getBirthDate() {

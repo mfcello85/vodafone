@@ -1,7 +1,7 @@
 package it.vodafone.test.service;
 
 import it.vodafone.test.dto.PersonTaxCode;
-import it.vodafone.test.entity.City;
+import it.vodafone.test.entity.Country;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.repository.CityRepository;
 import it.vodafone.test.util.StringUtil;
@@ -36,10 +36,10 @@ public class PersonTaxCodeCreator {
         String monthLetter = monthParser.getMonthLetter(birthDate.getMonth());
         String birthDay = extractBirthDay(personTaxCode);
 
-        Optional<City> optionalCity = cityRepository.findByName(personTaxCode.getCountry().toUpperCase());
-        City city = optionalCity.get();
+        Optional<Country> optionalCity = cityRepository.findByName(personTaxCode.getCountry().toUpperCase());
+        Country country = optionalCity.get();
 
-        String baseTaxCode = surnameSection + nameSection + year + monthLetter + birthDay + city.getCode();
+        String baseTaxCode = surnameSection + nameSection + year + monthLetter + birthDay + country.getCode();
 
         String controlCharacter = cinCalculator.getControlCharacter(baseTaxCode);
 
