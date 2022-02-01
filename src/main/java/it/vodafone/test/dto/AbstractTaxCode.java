@@ -7,11 +7,9 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public abstract class AbstractTaxCode {
-
     private TaxCodeTypeEnum taxCodeType;
 
     public AbstractTaxCode(TaxCodeTypeEnum taxCodeType) {
         this.taxCodeType = taxCodeType;
     }
-
 }

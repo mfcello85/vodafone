@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+/**
+ * It represents a single taxcode used as the input for the parsing endpoint
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

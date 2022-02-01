@@ -12,31 +12,27 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+/**
+ * Pojo representing a generic model a person tax code
+ */
 @Setter
 @EqualsAndHashCode
 public class GenericPersonTaxCode extends AbstractTaxCode {
 
     private LocalDate birthDate;
-    @NotNull(message = "Gender can't be null")
     private Gender genderFromTaxCode;
-
-    @NotBlank(message = "Country can't be null")
-    @ExistingCity
     private String comune;
     private Boolean foreignCountry = false;
 
-    public GenericPersonTaxCode(LocalDate birthDate
+    public GenericPersonTaxCode(TaxCodeTypeEnum taxCodeType, LocalDate birthDate
             , Gender genderFromTaxCode, String comune, Boolean foreignCountry) {
-        super(TaxCodeTypeEnum.PHYSICAL_PERSON);
+        super(taxCodeType);
         this.birthDate = birthDate;
         this.genderFromTaxCode = genderFromTaxCode;
         this.comune = comune;
         this.foreignCountry = foreignCountry;
     }
 
-    @NotNull(message = "Birth day can't be null")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -45,7 +41,6 @@ public class GenericPersonTaxCode extends AbstractTaxCode {
         this.birthDate = birthDate;
     }
 
-    @NotNull(message = "Gender can't be null")
     public Gender getGenderFromTaxCode() {
         return genderFromTaxCode;
     }
@@ -54,8 +49,6 @@ public class GenericPersonTaxCode extends AbstractTaxCode {
         this.genderFromTaxCode = genderFromTaxCode;
     }
 
-    @NotBlank(message = "Country can't be null")
-    @ExistingCity
     public String getComune() {
         return comune;
     }

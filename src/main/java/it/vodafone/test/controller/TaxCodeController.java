@@ -43,7 +43,7 @@ public class TaxCodeController {
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE
             , produces = MediaType.APPLICATION_JSON_VALUE)
-    public TaxCode taxCodeFromComponents(@Validated @RequestBody PersonTaxCode nodeDto) {
+    public TaxCode taxCodeFromComponents( @Valid @RequestBody PersonTaxCode nodeDto) {
         return taxCodeService.taxCodeFromComponents(nodeDto);
     }
 

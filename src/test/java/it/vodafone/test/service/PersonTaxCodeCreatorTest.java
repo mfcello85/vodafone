@@ -123,7 +123,7 @@ public class PersonTaxCodeCreatorTest {
     private PersonTaxCode generatePersonTaxCode() {
         PersonTaxCode personTaxCode = new PersonTaxCode(LocalDate.of(1985, 6, 24), Gender.MALE, "LOVERE", false,asList("FELAPPI")
                 , asList("MARCELLO")
-                ,  "H");
+                );
 
         return personTaxCode;
     }

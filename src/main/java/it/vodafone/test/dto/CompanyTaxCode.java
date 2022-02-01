@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents the tax code of a company
+ */
 @Getter
 @Setter
 @EqualsAndHashCode

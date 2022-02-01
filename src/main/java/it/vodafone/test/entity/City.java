@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * Represents the model of a city/country coming from the data imported from Istat
+ */
 @Data
 @NoArgsConstructor
 @Entity

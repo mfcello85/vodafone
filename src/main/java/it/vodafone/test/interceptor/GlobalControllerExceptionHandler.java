@@ -2,6 +2,7 @@ package it.vodafone.test.interceptor;
 
 
 import it.vodafone.test.dto.ErrorResponse;
+import it.vodafone.test.exception.BadRquestException;
 import it.vodafone.test.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,12 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> handleConnversion(NotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BadRquestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleConnversion(BadRquestException ex) {
+        return new ResponseEntity(ex.getError(), HttpStatus.BAD_REQUEST);
     }
 
     @Override

@@ -3,6 +3,8 @@ package it.vodafone.test.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -48,7 +50,13 @@ public class PersonTaxCodeParser {
 
     public String getBirthDay(String taxCode) {
         String birthDay = taxCode.substring(9, 11); // digits
-        return omocodeTransformer.cleanFromOmocodeCharacters(birthDay);
+        String cleanedBithDay = omocodeTransformer.cleanFromOmocodeCharacters(birthDay);
+        int rawDay = Integer.parseInt(birthDay);
+        if(rawDay>40){
+            rawDay = rawDay - 40;
+        }
+        NumberFormat numberFormat = new DecimalFormat("00");
+        return numberFormat.format(rawDay);
     }
 
     public String getCountry(String taxCode) {
