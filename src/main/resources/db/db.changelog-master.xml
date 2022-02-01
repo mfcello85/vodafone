@@ -28,7 +28,7 @@
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"
-                  file="/db/country-table.csv"
+                  file="/db/city-table.csv"
                   schemaName="public"
                   separator=";"
                   tableName="country"
