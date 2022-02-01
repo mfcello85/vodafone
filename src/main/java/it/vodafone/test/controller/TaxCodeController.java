@@ -33,7 +33,9 @@ public class TaxCodeController {
     })
     @PostMapping(value = "/component", consumes = MediaType.APPLICATION_JSON_VALUE
             , produces = MediaType.APPLICATION_JSON_VALUE)
-    public AbstractTaxCode taxCodeComponents(@Schema(required = true, example = "FLPMCL85H24704H") @Valid @RequestBody TaxCode taxCode
+    public AbstractTaxCode taxCodeComponents(@Schema(required = true, example = "{\n" +
+            "  \"taxCode\": \"FLPMCL85H24704H\"\n" +
+            "}") @Valid @RequestBody TaxCode taxCode
             , HttpServletRequest httpServletRequest) {
         return taxCodeService.generateTaxCodeComponents(taxCode);
     }
