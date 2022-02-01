@@ -39,6 +39,7 @@ public class PersonTaxCodeParserTest {
 
     @Test
     public void shouldGetYear() {
+        Mockito.when(omocodeTransformer.cleanFromOmocodeCharacters("85")).thenReturn("85");
         assertEquals(TAXCODE.substring(6, 8), personTaxCodeParser.getYear(TAXCODE));
     }
 

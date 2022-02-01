@@ -24,11 +24,11 @@ public class PersonTaxCodeParser {
     }
 
     public String getYear(String taxcode) {
-        return taxcode.substring(6, 8); // two digits
+        return omocodeTransformer.cleanFromOmocodeCharacters(taxcode.substring(6, 8)); // two digits
     }
 
     public String getCompleteBirthYear(String taxCode) {
-        String rawYear = getYear(taxCode); // two digits
+        String rawYear = taxCode.substring(6, 8); // two digits
         String cleanedTaxCodeYear = omocodeTransformer.cleanFromOmocodeCharacters(rawYear);
         String actualYear = String.valueOf(LocalDate.now().getYear()).substring(2, 4);
 
@@ -51,7 +51,7 @@ public class PersonTaxCodeParser {
     public String getBirthDay(String taxCode) {
         String birthDay = taxCode.substring(9, 11); // digits
         String cleanedBithDay = omocodeTransformer.cleanFromOmocodeCharacters(birthDay);
-        int rawDay = Integer.parseInt(birthDay);
+        int rawDay = Integer.parseInt(cleanedBithDay);
         if(rawDay>40){
             rawDay = rawDay - 40;
         }

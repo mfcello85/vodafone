@@ -1,10 +1,7 @@
 package it.vodafone.test.dto;
 
 import it.vodafone.test.validator.ValidTaxCode;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * It represents a single taxcode used as the input for the parsing endpoint
@@ -13,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class TaxCode {
 
     @ValidTaxCode

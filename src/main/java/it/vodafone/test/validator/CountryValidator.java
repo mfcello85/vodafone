@@ -10,12 +10,12 @@ import javax.validation.ConstraintValidatorContext;
 
 @Service
 @AllArgsConstructor
-public class CityValidator implements
-        ConstraintValidator<ExistingCity, String> {
+public class CountryValidator implements
+        ConstraintValidator<ExistingCountry, String> {
     private final CityRepository cityRepository;
 
     @Override
-    public void initialize(ExistingCity constraintAnnotation) {
+    public void initialize(ExistingCountry constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
@@ -23,7 +23,7 @@ public class CityValidator implements
     public boolean isValid(String city, ConstraintValidatorContext constraintValidatorContext) {
 
         if (StringUtils.isBlank(city)) {
-            return false;
+            return true;
         }
         return cityRepository.findByName(city.toUpperCase()).isPresent();
     }

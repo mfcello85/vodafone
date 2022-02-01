@@ -37,10 +37,9 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> details = new ArrayList<>();
         for(FieldError error : ex.getFieldErrors()) {
-            details.add(error.getField() + " "
-                    + error.getDefaultMessage()
-                    + ": rejected value ["
-                    + error.getRejectedValue() +"]");
+            details.add(error.getDefaultMessage()
+                    + ": rejected value "
+                    + error.getRejectedValue());
         }
         ErrorResponse error = new ErrorResponse("Validation Failed", details);
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);

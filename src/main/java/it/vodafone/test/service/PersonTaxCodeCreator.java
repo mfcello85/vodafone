@@ -36,7 +36,7 @@ public class PersonTaxCodeCreator {
         String monthLetter = monthParser.getMonthLetter(birthDate.getMonth());
         String birthDay = extractBirthDay(personTaxCode);
 
-        Optional<City> optionalCity = cityRepository.findByName(personTaxCode.getComune().toUpperCase());
+        Optional<City> optionalCity = cityRepository.findByName(personTaxCode.getCountry().toUpperCase());
         City city = optionalCity.get();
 
         String baseTaxCode = surnameSection + nameSection + year + monthLetter + birthDay + city.getCode();

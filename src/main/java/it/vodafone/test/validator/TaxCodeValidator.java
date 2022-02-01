@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TaxCodeValidator implements
         ConstraintValidator<ValidTaxCode, String> {
-    static final String WRONG_LENGTH = "Wrong length: the tax code length must be 9,1, or 16";
+    public static final String WRONG_LENGTH = "Wrong length: the tax code length must be 9,1, or 16";
     public static final String ALPHANUMERIC_CHARACTER = "A tax code can contain only alphanumeric character";
     public static final String SURNAME_ERROR = "The tax code surname field con contain only literal characters";
     public static final String NAME_ERROR = "The tax code name field con contain" +

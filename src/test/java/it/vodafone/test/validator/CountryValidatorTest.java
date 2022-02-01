@@ -11,9 +11,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-public class CityValidatorTest {
+public class CountryValidatorTest {
 
-    private CityValidator cityValidator;
+    private CountryValidator countryValidator;
 
     private static final String CITY_NAME = "CITY";
     @Mock
@@ -22,20 +22,20 @@ public class CityValidatorTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        cityValidator = new CityValidator(cityRepository);
+        countryValidator = new CountryValidator(cityRepository);
 
         Mockito.when(cityRepository.findByName(CITY_NAME)).thenReturn(Optional.of(new City()));
     }
 
     @Test
     public void shouldValidateCityWithSuccess() {
-        boolean valid = cityValidator.isValid(CITY_NAME, null);
+        boolean valid = countryValidator.isValid(CITY_NAME, null);
         Assertions.assertTrue(valid);
     }
 
     @Test
     public void shouldFailToValidateCity() {
-        boolean valid = cityValidator.isValid("MILANO", null);
+        boolean valid = countryValidator.isValid("MILANO", null);
         Assertions.assertFalse(valid);
     }
 
