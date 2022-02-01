@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.vodafone.test.dto.AbstractTaxCode;
-import it.vodafone.test.dto.PhysicalPersonTaxCode;
+import it.vodafone.test.dto.PersonTaxCode;
 import it.vodafone.test.dto.TaxCode;
 import it.vodafone.test.service.TaxCodeService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class TaxCodeController {
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE
             , produces = MediaType.APPLICATION_JSON_VALUE)
-    public TaxCode taxCodeFromComponents(@Validated @RequestBody PhysicalPersonTaxCode nodeDto) {
+    public TaxCode taxCodeFromComponents(@Validated @RequestBody PersonTaxCode nodeDto) {
         return taxCodeService.taxCodeFromComponents(nodeDto);
     }
 

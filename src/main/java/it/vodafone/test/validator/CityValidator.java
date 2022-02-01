@@ -25,7 +25,7 @@ public class CityValidator implements
         if (StringUtils.isBlank(city)) {
             return false;
         }
-        return cityRepository.findByName(city).isPresent();
+        return cityRepository.findByName(city.toUpperCase()).isPresent();
     }
 
 }

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ import java.time.Month;
 
 import static it.vodafone.test.service.TaxCodeService.WRONG_LENGTH_MESSAGE;
 import static java.lang.String.format;
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -73,11 +71,12 @@ public class TaxCodeServiceTest {
         when(personTaxCodeParser.getCountry(taxCode.getTaxCode())).thenReturn("E704H");
 
         AbstractTaxCode abstractTaxCode = taxCodeService.generateTaxCodeComponents(taxCode);
-        assertInstanceOf(PhysicalPersonTaxCode.class, abstractTaxCode);
+        assertInstanceOf(PersonTaxCodeComponents.class, abstractTaxCode);
 
-        PhysicalPersonTaxCode physicalPersonTaxCode = new PhysicalPersonTaxCode(asList("FLP")
-                , asList("MCL"), LocalDate.of(1985, 6, 24), Gender.MALE
-                , "E704H", false, "H");
+        PersonTaxCodeComponents physicalPersonTaxCode = new PersonTaxCodeComponents(LocalDate.of(1985, 6, 24)
+                , Gender.MALE
+                , "E704H", false, "FLP"
+                , "MCL", "H");
         Assertions.assertEquals(physicalPersonTaxCode, abstractTaxCode);
     }
 

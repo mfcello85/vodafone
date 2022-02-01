@@ -1,6 +1,6 @@
 package it.vodafone.test.service;
 
-import it.vodafone.test.dto.PhysicalPersonTaxCode;
+import it.vodafone.test.dto.PersonTaxCode;
 import it.vodafone.test.entity.City;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.repository.CityRepository;
@@ -26,7 +26,7 @@ public class PersonTaxCodeCreator {
     private final CityRepository cityRepository;
     private final CinCalculator cinCalculator;
 
-    public String createTaxCode(PhysicalPersonTaxCode personTaxCode) {
+    public String createTaxCode(PersonTaxCode personTaxCode) {
 
         String surnameSection = getSurnameSection(personTaxCode);
         String nameSection = getNameSection(personTaxCode);
@@ -46,7 +46,7 @@ public class PersonTaxCodeCreator {
         return baseTaxCode + controlCharacter;
     }
 
-    String extractBirthDay(PhysicalPersonTaxCode personTaxCode) {
+    String extractBirthDay(PersonTaxCode personTaxCode) {
         NumberFormat numberFormat = new DecimalFormat("00");
         Gender genderFromTaxCode = personTaxCode.getGenderFromTaxCode();
         int birthDay = personTaxCode.getBirthDate().getDayOfMonth();
@@ -57,7 +57,7 @@ public class PersonTaxCodeCreator {
         return numberFormat.format(birthDay);
     }
 
-    String getSurnameSection(PhysicalPersonTaxCode personTaxCode) {
+    String getSurnameSection(PersonTaxCode personTaxCode) {
         List<String> surnames = personTaxCode.getSurname();
 
         String consonants = surnames.stream()
@@ -88,7 +88,7 @@ public class PersonTaxCodeCreator {
         return consonants;
     }
 
-    String getNameSection(PhysicalPersonTaxCode personTaxCode) {
+    String getNameSection(PersonTaxCode personTaxCode) {
         List<String> name = personTaxCode.getName();
 
         if (!name.isEmpty() && name.get(0).chars().mapToObj(s -> (char) s)

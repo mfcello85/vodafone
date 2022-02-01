@@ -1,8 +1,12 @@
 package it.vodafone.test.dto;
 
 import it.vodafone.test.enumeration.TaxCodeTypeEnum;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-public class AbstractTaxCode {
+@Getter
+@EqualsAndHashCode
+public abstract class AbstractTaxCode {
 
     private TaxCodeTypeEnum taxCodeType;
 

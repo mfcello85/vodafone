@@ -1,6 +1,7 @@
 package it.vodafone.test.service;
 
-import it.vodafone.test.dto.PhysicalPersonTaxCode;
+import it.vodafone.test.dto.PersonTaxCode;
+import it.vodafone.test.dto.PersonTaxCode;
 import it.vodafone.test.entity.City;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.repository.CityRepository;
@@ -39,7 +40,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetBirthDayWithMaleUser() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setBirthDate(LocalDate.of(1985, 06, 1));
         String birthDay = personTaxCodeCreator.extractBirthDay(personTaxCode);
 
@@ -48,7 +49,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetBirthDayWithFemaleUser() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setBirthDate(LocalDate.of(1985, 06, 1));
         personTaxCode.setGenderFromTaxCode(Gender.FEMALE);
         String birthDay = personTaxCodeCreator.extractBirthDay(personTaxCode);
@@ -58,7 +59,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetSurnameSectionWithATwoLetterSurname() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setSurname(asList("AB"));
         String surnameSection = personTaxCodeCreator.getSurnameSection(personTaxCode);
 
@@ -67,7 +68,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetSurnameSectionWithConsonantsLessThanThree() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setSurname(asList("AB", "EC"));
         String surnameSection = personTaxCodeCreator.getSurnameSection(personTaxCode);
 
@@ -76,7 +77,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetSurnameSectionWithConsonantsMoreThanThree() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setSurname(asList("ABCD", "EC"));
         String surnameSection = personTaxCodeCreator.getSurnameSection(personTaxCode);
 
@@ -85,7 +86,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetNameSectionWithATwoLetterName() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setName(asList("AB"));
         String nameSection = personTaxCodeCreator.getNameSection(personTaxCode);
 
@@ -94,7 +95,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetNameSectionWithMoreThanThreeConsonants() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setName(asList("ABCDFG"));
         String nameSection = personTaxCodeCreator.getNameSection(personTaxCode);
 
@@ -103,7 +104,7 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetNameSectionWithThreeConsonants() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setName(asList("TZNAA"));
         String nameSection = personTaxCodeCreator.getNameSection(personTaxCode);
 
@@ -112,17 +113,17 @@ public class PersonTaxCodeCreatorTest {
 
     @Test
     public void shouldGetNameSectionWithLessThanThreeConsonants() {
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
         personTaxCode.setName(asList("ABC"));
         String nameSection = personTaxCodeCreator.getNameSection(personTaxCode);
 
         assertEquals(nameSection, "BCA");
     }
 
-    private PhysicalPersonTaxCode generatePhysicalPersonTaxCode() {
-        PhysicalPersonTaxCode personTaxCode = new PhysicalPersonTaxCode(asList("FELAPPI")
+    private PersonTaxCode generatePersonTaxCode() {
+        PersonTaxCode personTaxCode = new PersonTaxCode(LocalDate.of(1985, 6, 24), Gender.MALE, "LOVERE", false,asList("FELAPPI")
                 , asList("MARCELLO")
-                , LocalDate.of(1985, 6, 24), Gender.MALE, "LOVERE", false, "H");
+                ,  "H");
 
         return personTaxCode;
     }
@@ -135,7 +136,7 @@ public class PersonTaxCodeCreatorTest {
         city.setCode("E704");
 
         when(cityRepository.findByName(any())).thenReturn(Optional.of(city));
-        PhysicalPersonTaxCode personTaxCode = generatePhysicalPersonTaxCode();
+        PersonTaxCode personTaxCode = generatePersonTaxCode();
 
         String taxCode = personTaxCodeCreator.createTaxCode(personTaxCode);
 

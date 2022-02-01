@@ -49,11 +49,11 @@ public class TaxCodeService {
         Boolean foreignCountry = comune.toUpperCase().startsWith("Z");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthYear), birthMonth, Integer.parseInt(birthDay));
 
-        return new PhysicalPersonTaxCode(asList(surname), asList(name), birthDate
-                , genderFromTaxCode, comune, foreignCountry, controlCharacter);
+        return new PersonTaxCodeComponents(birthDate, genderFromTaxCode, comune, foreignCountry, surname, name
+                , controlCharacter);
     }
 
-    public TaxCode taxCodeFromComponents(PhysicalPersonTaxCode taxCode) {
+    public TaxCode taxCodeFromComponents(PersonTaxCode taxCode) {
         // case of person taxcode
         return new TaxCode(personTaxCodeCreator.createTaxCode(taxCode));
     }
