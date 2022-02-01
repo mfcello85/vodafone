@@ -23,10 +23,20 @@ public class OmocodeTransformer {
         omocodeSource.put("V", 9);
     }
 
+    /**
+     * It checks whether a letter is a valid replacement used to avoid omocode collision
+     * @param inputCharacter
+     * @return
+     */
     public Boolean checkValidOmocode(String inputCharacter) {
         return omocodeSource.containsKey(inputCharacter.toUpperCase());
     }
 
+    /**
+     * It removes omocode from the input character leaving untouched the mismatching characters
+     * @param inputCharacter
+     * @return
+     */
     public String getCleanTaxCodeCharacter(String inputCharacter) {
 
         if (!checkValidOmocode(inputCharacter)) {
@@ -35,6 +45,11 @@ public class OmocodeTransformer {
         return String.valueOf(omocodeSource.get(inputCharacter.toUpperCase()));
     }
 
+    /**
+     * It removes "omocode characters" from a string
+     * @param inputString
+     * @return
+     */
     public String cleanFromOmocodeCharacters(String inputString) {
         return inputString.chars()
                 .mapToObj(s -> (char) s)

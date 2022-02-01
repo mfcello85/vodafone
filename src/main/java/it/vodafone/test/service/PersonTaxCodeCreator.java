@@ -26,6 +26,11 @@ public class PersonTaxCodeCreator {
     private final CityRepository cityRepository;
     private final CinCalculator cinCalculator;
 
+    /**
+     * It joins all the components calculated starting from the inputs to create the tax code
+     * @param personTaxCode
+     * @return
+     */
     public String createTaxCode(PersonTaxCode personTaxCode) {
 
         String surnameSection = getSurnameSection(personTaxCode);
@@ -46,6 +51,11 @@ public class PersonTaxCodeCreator {
         return baseTaxCode + controlCharacter;
     }
 
+    /**
+     * It extracts the birth day from the input date considering the format 00
+     * @param personTaxCode
+     * @return
+     */
     String extractBirthDay(PersonTaxCode personTaxCode) {
         NumberFormat numberFormat = new DecimalFormat("00");
         Gender genderFromTaxCode = personTaxCode.getGenderFromTaxCode();
@@ -57,6 +67,14 @@ public class PersonTaxCodeCreator {
         return numberFormat.format(birthDay);
     }
 
+    /**
+     * It extracts the surname section form the taxcode following the following rules:
+     * 1- surname length = 2 -> add a 'X' at the end
+     * 2- take the first 3 consonants from all the surnames in the order and if not enough
+     * even the vowels always following the order
+     * @param personTaxCode
+     * @return
+     */
     String getSurnameSection(PersonTaxCode personTaxCode) {
         List<String> surnames = personTaxCode.getSurname();
 
@@ -88,6 +106,15 @@ public class PersonTaxCodeCreator {
         return consonants;
     }
 
+    /**
+     * It extracts the surname section form the taxcode following the following rules:
+     * 1- name length = 2 -> add a 'X' at the end
+     * 2- more than 3 consonants -> append the first, the third and the fourth
+     * 3- take the first 3 consonants from all the name in the order and if not enough
+     * even the vowels always following the order
+     * @param personTaxCode
+     * @return
+     */
     String getNameSection(PersonTaxCode personTaxCode) {
         List<String> name = personTaxCode.getName();
 

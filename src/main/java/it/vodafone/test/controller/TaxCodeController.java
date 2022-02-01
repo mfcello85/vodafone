@@ -1,6 +1,7 @@
 package it.vodafone.test.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.vodafone.test.dto.AbstractTaxCode;
@@ -32,7 +33,7 @@ public class TaxCodeController {
     })
     @PostMapping(value = "/component", consumes = MediaType.APPLICATION_JSON_VALUE
             , produces = MediaType.APPLICATION_JSON_VALUE)
-    public AbstractTaxCode taxCodeComponents(@Valid @RequestBody TaxCode taxCode
+    public AbstractTaxCode taxCodeComponents(@Schema(required = true, example = "FLPMCL85H24704H") @Valid @RequestBody TaxCode taxCode
             , HttpServletRequest httpServletRequest) {
         return taxCodeService.generateTaxCodeComponents(taxCode);
     }
@@ -43,7 +44,18 @@ public class TaxCodeController {
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE
             , produces = MediaType.APPLICATION_JSON_VALUE)
-    public TaxCode taxCodeFromComponents( @Valid @RequestBody PersonTaxCode nodeDto) {
+    public TaxCode taxCodeFromComponents( @Schema(required = true, example = "{\n" +
+            "  \"birthDate\": \"24/06/1985\",\n" +
+            "  \"genderFromTaxCode\": \"MALE\",\n" +
+            "  \"country\": \"LOVERE\",\n" +
+            "  \"foreignCountry\": false,\n" +
+            "  \"surname\": [\n" +
+            "    \"Felappi\"\n" +
+            "  ],\n" +
+            "  \"name\": [\n" +
+            "    \"Marcello\"\n" +
+            "  ]\n" +
+            "}") @Valid @RequestBody PersonTaxCode nodeDto) {
         return taxCodeService.taxCodeFromComponents(nodeDto);
     }
 

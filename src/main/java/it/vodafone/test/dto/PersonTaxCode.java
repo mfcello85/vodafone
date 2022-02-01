@@ -1,6 +1,7 @@
 package it.vodafone.test.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import it.vodafone.test.enumeration.Gender;
 import it.vodafone.test.validator.ExistingCountry;
 import it.vodafone.test.validator.InvalidList;
@@ -22,19 +23,28 @@ import java.util.List;
 @EqualsAndHashCode
 public class PersonTaxCode {
 
+    @Schema(pattern ="dd/MM/yyyy", example = "24/06/1985")
     @NotNull(message = "Birth day can't be null")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
+
+    @Schema(required = true, pattern = "FEMALE|MALE")
     @NotNull(message = "Gender can't be null")
     private Gender genderFromTaxCode;
+
+    @Schema(required = true)
     @NotBlank(message = "Country can't be null")
     @ExistingCountry
     private String country;
     private Boolean foreignCountry = false;
+
+    @Schema(required = true)
     @NotEmpty(message = "Surname list can't be empty")
     @InvalidList(message = "The list should contain at least a two character surname")
     private List<String> surname;
+
+    @Schema(required = true)
     @NotEmpty(message = "Name list can't be empty")
     @InvalidList(message = "The list should contain at least a two character name")
     private List<String> name;

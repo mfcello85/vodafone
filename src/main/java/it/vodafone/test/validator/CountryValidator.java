@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * It validates if a country code exists in the database
+ */
 @Service
 @AllArgsConstructor
 public class CountryValidator implements

@@ -29,10 +29,20 @@ public class MonthParser {
         monthMap.put("T", Month.DECEMBER);
     }
 
+    /**
+     * Checks is a letter is a valid rappresentation a month according to the conversion map
+     * @param letter
+     * @return
+     */
     public boolean isValidMonth(String letter) {
         return monthMap.containsKey(letter.toUpperCase());
     }
 
+    /**
+     * It gets the month representation given a letter
+     * @param letter
+     * @return
+     */
     public Month getMonth(String letter) {
         if (!isValidMonth(letter)) {
             throw new IllegalArgumentException("Monthes are described with letters belonging " +

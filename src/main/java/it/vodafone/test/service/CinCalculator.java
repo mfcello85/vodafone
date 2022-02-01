@@ -117,6 +117,13 @@ public class CinCalculator {
         restConversionValues.put(25, "Z");
     }
 
+    /**
+     * Calculates the control character from the given tax code according to the conversion tables.
+     * Even and odd characters are converted to numbers and then summed. The rest of the division by 26 is the
+     * control character
+     * @param taxCode
+     * @return the control character of the tax code
+     */
     public String getControlCharacter(String taxCode) {
 
         int controlValueBase = rangeClosed(1, taxCode.length())
@@ -128,6 +135,13 @@ public class CinCalculator {
         return restConversionValues.get(rest);
     }
 
+    /**
+     * Translates the character of the taxcode to the matching number that will be used
+     * to calculate the control character
+     * @param taxCode
+     * @param i
+     * @return the numeric translated value of the taxcode characters
+     */
     private Integer getCalculatedValue(String taxCode, Integer i) {
         String precalculatedTaxCodeValue = String.valueOf(taxCode.charAt(i - 1));
         if (i % 2 == 0) {

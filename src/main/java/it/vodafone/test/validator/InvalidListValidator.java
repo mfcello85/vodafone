@@ -8,6 +8,9 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * It checks if a string list contains null value or is composed by a single character
+ */
 @Service
 @AllArgsConstructor
 public class InvalidListValidator implements

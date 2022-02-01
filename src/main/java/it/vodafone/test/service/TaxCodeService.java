@@ -21,6 +21,11 @@ public class TaxCodeService {
 
     static final String WRONG_LENGTH_MESSAGE = "Wrong taxcode length: %s. The only taxcode length allowed are 9, 11, 16.";
 
+    /**
+     * It extracts all the components from a valid taxcode
+     * @param taxCode
+     * @return
+     */
     public AbstractTaxCode generateTaxCodeComponents(TaxCode taxCode) {
         //11 o 16 righe che distinguono persono fisiche dalle partite iva
 
@@ -53,6 +58,11 @@ public class TaxCodeService {
                 , controlCharacter);
     }
 
+    /**
+     * It generates a taxcode from its components
+     * @param taxCode
+     * @return
+     */
     public TaxCode taxCodeFromComponents(PersonTaxCode taxCode) {
         // case of person taxcode
         return new TaxCode(personTaxCodeCreator.createTaxCode(taxCode));

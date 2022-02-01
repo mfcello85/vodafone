@@ -35,6 +35,20 @@ public class TaxCodeValidator implements
     private final TaxCodeValidatorUtil taxCodeValidatorUtil;
     private final MonthParser monthParser;
 
+    /**
+     * It pursues all the validation needed to obtain a clean taxcode:
+     * 1-length (9,11,16)
+     * 2-alphanumeric validation
+     * 3-literal surname section
+     * 4-literal name section
+     * 5-numeric year section (apart for letter used to avoid collision)
+     * 6-literal month belonging to the defined conversion table
+     * 7-numeric birth day (apart for letter used to avoid collision)
+     * 8-sintactically valid country code
+     * @param taxCode
+     * @param constraintValidatorContext
+     * @return
+     */
     @Override
     public boolean isValid(String taxCode, ConstraintValidatorContext constraintValidatorContext) {
         constraintValidatorContext.disableDefaultConstraintViolation();
